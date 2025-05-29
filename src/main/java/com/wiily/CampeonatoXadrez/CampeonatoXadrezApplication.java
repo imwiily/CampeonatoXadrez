@@ -13,6 +13,7 @@ public class CampeonatoXadrezApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) {
-		MainMethod.XadrezMain();
+		MainMethod main = new MainMethod();
+		main.XadrezMain();
 	}
 }

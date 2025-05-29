@@ -7,10 +7,11 @@ import com.wiily.CampeonatoXadrez.model.PlayerGameStyle;
 import com.wiily.CampeonatoXadrez.model.PlayerLevel;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.wiily.CampeonatoXadrez.util.UtilFiles.PlayersPath;
+import static com.wiily.CampeonatoXadrez.util.UtilFiles.*;
 
 public class Data implements iSaveData{
     ObjectMapper mapper = new ObjectMapper();
@@ -55,8 +56,19 @@ public class Data implements iSaveData{
                 mapper.writerWithDefaultPrettyPrinter()
                         .writeValue(file, list);
             }
-        } catch (Exception e) {
-            System.out.println("Erro ao salvar JSON");
+        } catch (FileNotFoundException e) {
+            System.out.println(yellowColor + "Diretório nao localizado. Criando diretório..." + resetColor);
+            File dataDir = new File(DataDir);
+            boolean dirCreated = dataDir.mkdir();
+            if (dirCreated) {
+                System.out.println(yellowColor + "Diretório criado, tentando salvar arquivo." + resetColor);
+                saveData(path, object);
+            } else {
+                System.out.println(redColor + "Erro ao criar diretório! Tente criar manualmente!" + resetColor);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(redColor + "Erro ao salvar JSON");
             throw new RuntimeException(e);
         }
     }
@@ -78,6 +90,7 @@ public class Data implements iSaveData{
                 }
             }
             else {
+
                 mapper.writerWithDefaultPrettyPrinter()
                         .writeValue(file, object);
             }

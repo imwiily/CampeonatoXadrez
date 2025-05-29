@@ -7,20 +7,15 @@ import com.wiily.CampeonatoXadrez.util.Messages;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static com.wiily.CampeonatoXadrez.util.UtilFiles.header;
+import static com.wiily.CampeonatoXadrez.util.UtilFiles.selectOptions;
+
 public class PlayerRegistration {
 
+    MainMethod main = new MainMethod();
     Messages msg = new Messages();
     Scanner sc = new Scanner(System.in);
     Data db = new Data();
-    String header = """
-            [Campeonato de Xadrez - Gerenciamento]
-            """;
-    String selectOptions = """
-                - Cadastro de jogadores:
-                [1] Adicionar jogador;
-                [2] Remover jogador;
-                [0] Voltar ao menu principal;
-                """;
 
     public void mainRegistration() {
         int option;
@@ -32,8 +27,8 @@ public class PlayerRegistration {
                 System.out.println(option);
                 switch (option) {
                     case 1 -> PlayerRegistrationAddPlayer();
-                    case 2 -> PlayerRegistrationremovePlayer();
-                    case 0 -> MainMethod.XadrezMain();
+                    case 2 -> PlayerRegistrationRemovePlayer();
+                    case 0 -> main.XadrezMain();
                     default -> System.out.println("Essa opção não existe. Por favor, selecione uma acima.");
                 }
                 break;
@@ -81,7 +76,7 @@ public class PlayerRegistration {
                 switch (option.toLowerCase()) {
                     case "n" -> {
                         sc.nextLine();
-                        MainMethod.XadrezMain();
+                        main.XadrezMain();
                     }
                     case "s" -> {
                         sc.nextLine();
@@ -90,9 +85,10 @@ public class PlayerRegistration {
                     default -> System.out.println("Opção inválida");
                 }
             }
+            break;
         }
     }
-    private void PlayerRegistrationremovePlayer() {
+    private void PlayerRegistrationRemovePlayer() {
         // TODO: Sistema de removere jogadores do banco de dados.
     }
 }
