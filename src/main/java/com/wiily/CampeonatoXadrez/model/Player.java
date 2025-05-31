@@ -5,5 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record Player(@JsonProperty("name") String nome,
                      @JsonProperty("level") String nivel,
-                     @JsonProperty("gameStyle") String estiloDeJogo) {
+                     @JsonProperty("gameStyle") String estiloDeJogo,
+                     @JsonProperty("id") int id) {
 }

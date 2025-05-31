@@ -4,7 +4,9 @@ import com.wiily.CampeonatoXadrez.database.Data;
 import com.wiily.CampeonatoXadrez.main.MainMethod;
 import com.wiily.CampeonatoXadrez.util.Messages;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import static com.wiily.CampeonatoXadrez.util.UtilFiles.header;
@@ -17,7 +19,7 @@ public class PlayerRegistration {
     Scanner sc = new Scanner(System.in);
     Data db = new Data();
 
-    public void mainRegistration() {
+    public void mainRegistration() throws IOException {
         int option;
         msg.send(header);
         while(true) {
@@ -39,7 +41,7 @@ public class PlayerRegistration {
             }
         }
     }
-    private void PlayerRegistrationAddPlayer() {
+    private void PlayerRegistrationAddPlayer() throws IOException {
         sc.nextLine();
         while(true) {
             msg.send(header);
@@ -50,24 +52,8 @@ public class PlayerRegistration {
             System.out.println("Qual o nome do jogador?");
             String name = sc.nextLine();
 
-            while(true) {
-                System.out.println("Qual o nível do jogador?");
-                System.out.println("[Iniciante] [Intermediário] [Avançado]");
-                level = sc.nextLine();
-                if (level.equalsIgnoreCase("iniciante")) break;
-                else if (level.equalsIgnoreCase("intermediario")) break;
-                else if (level.equalsIgnoreCase("avançado")) break;
-                else System.out.println("Opção inválida!");
-            }
-            while(true) {
-                System.out.println("Qual estido de jogo? ");
-                System.out.println("[Agressivo] [Defensivo] [Equilibrado]");
-                gameStyle = sc.nextLine();
-                if (gameStyle.equalsIgnoreCase("agressivo")) break;
-                else if (gameStyle.equalsIgnoreCase("defensivo")) break;
-                else if (gameStyle.equalsIgnoreCase("equilibrado")) break;
-                else System.out.println("Opção inválida!");
-            }
+            level = getPergunta("Qual o nível do jogador? ", List.of("Iniciante", "Intermediario", "Avançado"), sc);
+            gameStyle = getPergunta("Qual estido de jogo?", List.of("Agressivo", "Defensivo", "Equilibrado"), sc);
             db.createPlayerData(name, level, gameStyle);
             boolean executandoInternal = true;
             System.out.println("Deseja criar mais um usuário? [S/N]");
@@ -75,20 +61,34 @@ public class PlayerRegistration {
             while(executandoInternal) {
                 switch (option.toLowerCase()) {
                     case "n" -> {
-                        sc.nextLine();
                         main.XadrezMain();
                     }
                     case "s" -> {
-                        sc.nextLine();
                         executandoInternal = false;
                     }
                     default -> System.out.println("Opção inválida");
                 }
             }
-            break;
         }
     }
+
     private void PlayerRegistrationRemovePlayer() {
-        // TODO: Sistema de removere jogadores do banco de dados.
+        // TODO: Sistema de remover jogadores do banco de dados.
+    }
+
+    private String getPergunta (String pergunta, List<String> opcoes, Scanner sc) {
+        while(true) {
+            System.out.println(pergunta);
+            System.out.println(opcoes);
+            String resposta = sc.nextLine();
+            for (String opcao : opcoes) {
+                if (resposta.equalsIgnoreCase(opcao)) {
+                    return opcao;
+                }
+            }
+            System.out.println("Opçao inválida!");
+        }
+
+
     }
 }

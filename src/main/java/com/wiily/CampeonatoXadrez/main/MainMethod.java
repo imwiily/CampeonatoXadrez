@@ -3,6 +3,7 @@ package com.wiily.CampeonatoXadrez.main;
 import com.wiily.CampeonatoXadrez.util.Messages;
 import com.wiily.CampeonatoXadrez.viewer.PlayerRegistration;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -30,10 +31,12 @@ public class MainMethod {
             catch (InputMismatchException e) {
                 System.out.println(redColor + "Essa opção não existe. Por favor, selecione uma acima.");
                 sc.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
-    public void admMenu() {
+    public void admMenu() throws IOException {
         var playerRegistration = new PlayerRegistration();
         msg.send(admMenu);
         int o;

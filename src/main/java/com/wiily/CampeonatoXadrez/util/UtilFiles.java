@@ -2,11 +2,12 @@ package com.wiily.CampeonatoXadrez.util;
 
 public class UtilFiles {
 
-    // | Data directory
+    //| Data
     public static String DataDir = "src/main/resources/data/";
+    public static String IdData = "src/main/resources/data/id.json";
     public static String PlayersPath = "src/main/resources/data/players.json";
 
-    // MENUS
+    //| MENUS
     public static String mainMenu = """
             \u001B[35m+-------------------------------------------------------------+
             \u001B[35m|                     \u001B[37mCAMPEONATO DE XADREZ                    \u001B[35m|
@@ -44,7 +45,7 @@ public class UtilFiles {
             \u001B[35m|   \u001B[34m[\u001B[37m0\u001B[34m] \u001B[36mVoltar ao menu principal                             \u001B[35m|
             \u001B[35m+------------------------------------------------------------+
             \u001B[0m""";
-    // Colors
+    //| Colors
     public static String resetColor = "\u001B[0m";
     public static String redColor = "\u001B[31m";
     public static String yellowColor = "\u001B[33m";

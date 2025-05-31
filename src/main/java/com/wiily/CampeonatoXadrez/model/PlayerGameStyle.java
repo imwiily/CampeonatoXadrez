@@ -15,4 +15,5 @@ public enum PlayerGameStyle {
     public String toString() {
         return description;
     }
+
 }
